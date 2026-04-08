@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart ToDo Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="workspace">
+      <header class="top panel">
+        <div class="brand">
+          <div class="logo">T</div>
+          <div>
+            <h1>Task Orbit</h1>
+            <p>Minimal dark task workspace</p>
+          </div>
+        </div>
+        <div class="top-controls">
+          <span id="apiChip" class="chip"><span class="dot"></span>API: detecting...</span>
+          <span id="userChip" class="chip"><span class="dot"></span>Not signed in</span>
+          <button id="logoutBtn" class="btn-danger hidden" type="button">Logout</button>
+        </div>
+      </header>
+
+      <section id="messagePanel" class="alert" aria-live="polite"></section>
+
+      <section id="authSection" class="auth-shell panel">
+        <article class="auth-copy">
+          <h3>Sign In To Continue</h3>
+          <p>Track tasks, update priorities, and manage comments and attachments in one focused workspace.</p>
+          <ul>
+            <li>Fast task creation and filtering</li>
+            <li>Status and priority updates</li>
+            <li>Comment and file support per task</li>
+          </ul>
+        </article>
+
+        <section class="auth-forms">
+          <form id="loginForm" class="card">
+            <h3>Sign In</h3>
+            <div><label for="loginUsername">Username</label><input id="loginUsername" type="text" placeholder="Enter username" required /></div>
+            <div><label for="loginPassword">Password</label><input id="loginPassword" type="password" placeholder="Enter password" required /></div>
+            <button type="submit" class="btn-primary">Login</button>
+            <button id="showRegisterBtn" type="button" class="btn-link">Create account if you don't have one</button>
+          </form>
+
+          <form id="registerForm" class="card hidden">
+            <h3>Create Account</h3>
+            <div><label for="registerUsername">Username</label><input id="registerUsername" type="text" placeholder="Min 3 characters" minlength="3" required /></div>
+            <div><label for="registerPassword">Password</label><input id="registerPassword" type="password" placeholder="Min 6 characters" minlength="6" required /></div>
+            <button type="submit" class="btn-secondary">Register</button>
+            <button id="showLoginBtn" type="button" class="btn-link">Back to sign in</button>
+          </form>
+        </section>
+      </section>
+
+      <section id="appSection" class="app-view hidden">
+        <section class="section panel">
+          <h3>Create Task</h3>
+          <form id="taskForm" class="row">
+            <div class="row two">
+              <div><label for="titleInput">Title</label><input id="titleInput" type="text" placeholder="Task title" required /></div>
+              <div><label for="dueInput">Due Date</label><input id="dueInput" type="date" /></div>
+            </div>
+            <div><label for="descriptionInput">Description</label><textarea id="descriptionInput" placeholder="Add implementation notes"></textarea></div>
+            <div class="row three">
+              <div><label for="statusInput">Status</label><select id="statusInput"><option value="todo">To Do</option><option value="in-progress">In Progress</option><option value="done">Done</option></select></div>
+              <div><label for="priorityInput">Priority</label><select id="priorityInput"><option value="low">Low Priority</option><option value="medium" selected>Medium Priority</option><option value="high">High Priority</option></select></div>
+              <div><label>&nbsp;</label><button type="submit" class="btn-primary">Create Task</button></div>
+            </div>
+          </form>
+        </section>
+
+        <section class="section panel">
+          <h3>Filters and Query Controls</h3>
+          <div class="controls">
+            <div><label for="searchInput">Search</label><input id="searchInput" type="text" placeholder="Title or description" /></div>
+            <div><label for="filterStatus">Status</label><select id="filterStatus"><option value="">Any status</option><option value="todo">To Do</option><option value="in-progress">In Progress</option><option value="done">Done</option></select></div>
+            <div><label for="filterPriority">Priority</label><select id="filterPriority"><option value="">Any priority</option><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></div>
+            <div><label for="sortBy">Sort By</label><select id="sortBy"><option value="created_at">Created</option><option value="updated_at">Updated</option><option value="title">Title</option><option value="priority">Priority</option><option value="due_date">Due Date</option></select></div>
+            <div><label for="sortOrder">Sort Order</label><select id="sortOrder"><option value="desc">Newest first</option><option value="asc">Oldest first</option></select></div>
+            <div><label for="perPage">Per Page</label><select id="perPage"><option value="6">6</option><option value="10" selected>10</option><option value="20">20</option></select></div>
+            <button id="applyFiltersBtn" type="button" class="btn-secondary">Apply</button>
+          </div>
+        </section>
+
+        <section class="section panel tasks-panel">
+          <h3>Tasks</h3>
+          <div id="tasksContainer" class="tasks"></div>
+          <div class="pagination">
+            <button id="prevPageBtn" type="button" class="btn-muted">Prev</button>
+            <span id="pageInfo" class="chip">Page 1</span>
+            <button id="nextPageBtn" type="button" class="btn-muted">Next</button>
+          </div>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
